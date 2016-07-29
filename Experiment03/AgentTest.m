@@ -8,9 +8,10 @@ iniVel = 50;
 xTar = 0;
 zTar = 0;
 errThreshold = 0.2;
-velocityMultiplier = 1;
-omegaMultiplier = 1;
+velocityMultiplier = 150;
+omegaMultiplier = 4*100;
 agentLength = 0.15;
+loopNum = 200;
 
 %% Initialize Tracking System
 global frameRate;
@@ -126,7 +127,7 @@ while(1)
     if abs( sqrt( err ) ) <= errThreshold
         break;
     end
-    if counter >= 100
+    if counter >= loopNum
         break;
     end
     % Seeking Algorithm
