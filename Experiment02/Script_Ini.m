@@ -101,6 +101,7 @@ end
 
 %% Measure Initial Orientation
 % Move Agents
+movcounter = 1;
 AgentMessage = fun_int2instruction(iniVel,iniVel);
 while(movcounter<=iniMov)
     for agent = 1 : AgentNumber
