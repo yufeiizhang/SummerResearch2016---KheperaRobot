@@ -48,7 +48,6 @@ DataSet(counter,(agent-1)*6+6) = angles(3) * 180.0 / pi;   % must invert due to 
 import java.net.Socket
 import java.io.*% Agent
 counter = counter + 1;
-for agent = 1 : AgentNumber
     x = data.RigidBodies(agent).x;
     DataSet(counter,(agent-1)*6+1) = x;
     y = data.RigidBodies(agent).y;
@@ -62,12 +61,9 @@ for agent = 1 : AgentNumber
     DataSet(counter,(agent-1)*6+4) = angles(1) * 180.0 / pi;   % must invert due to 180 flip above
     DataSet(counter,(agent-1)*6+5) = angles(2) * 180.0 / pi;
     DataSet(counter,(agent-1)*6+6) = angles(3) * 180.0 / pi;   % must invert due to 180 flip above
-end
 % Calculate Orientation
 angleData = DataSet(2,:)-DataSet(1,:);
-for agent = 1 : AgentNumber
     iniAngle(agent) = atan2(angleData(3+(agent-1)*6),angleData(1+(agent-1)*6))*180/pi;
-end
 AgentPort = 344;
 AgentMessage = fun_int2instruction(0,0);
 AgentAddress = agentAddr;
@@ -104,6 +100,8 @@ DataSet(counter,(agent-1)*6+6) = angles(3) * 180.0 / pi;   % must invert due to 
 % Calculate Orientation
 angleData = DataSet(2,:)-DataSet(1,:);
 iniAngle(agent) = atan2(angleData(3+(agent-1)*6),angleData(1+(agent-1)*6))*180/pi;
+
+pause(2);
 
 %% Frame
 % Frame Header
