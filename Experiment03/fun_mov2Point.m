@@ -16,9 +16,16 @@ velocity = sqrt( velocity );
 velocity = vMulti * velocity;
 
 % Orientation
-angle = atan2( zt - z0 , xt - x0 ) * 180 / pi;
-omega = angle - ( iniOri + nowOri );
-omega = wMulti * omega;
+angle = atan2( zt - z0 , xt - x0 );
+agentOri = ( iniOri + nowOri ) * pi / 180;
+turning = angle - agentOri;
+while( turning >= pi )
+    turning = turning - 2*pi;
+end
+while( turning < -pi )
+    turning = turning + 2*pi;
+end
+omega = turning * wMulti;
 
 end
 
