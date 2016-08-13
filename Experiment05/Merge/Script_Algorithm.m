@@ -1,10 +1,3 @@
-% r1_T = fun_Sim2Tracking(r1m(:,counter));
-% r2_T = fun_Sim2Tracking(r2m(:,counter));
-% r3_T = fun_Sim2Tracking(r3m(:,counter));
-% r4_T = fun_Sim2Tracking(r4m(:,counter));
-% 
-% 
-% r1_S = [ r1_S ; r1_T ];
 %% Script_Algorithm
 
 %% Position
