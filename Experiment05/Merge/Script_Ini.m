@@ -85,12 +85,16 @@ end
 
 %% Agent Calibration
 display('Start Calibrate Sensor on Khepera Robot...');
+display('skip calibration.');
+CalibNum = 2;% just test the code here
 AgentStream = [];
 for ccounter = 1 : CalibNum
     for agent = 1 : AgentNumber
         sensorCal(ccounter,agent) = str2num(fgetl(mbed(agent)));
     end
 end
+% sensorBG = mean(sensorCal);
+% sensorBG should be loaded in advance...
 display('Finish Calibration.');
 
 
