@@ -22,23 +22,6 @@ for agent = 1 : AgentNumber
 end
 
 %% Sensor Reading
-% for agent = 1 : AgentNumber
-%     AgentStream(agent) = fgetl(mbed(agent));
-%     % record 1 group of data every frame
-%     %
-%     n=0;p=0;marker=0;
-%     % check the size of sensor reading data and
-%     % check the value of sensor reading data
-%     while((n~=1)||(p~=1)||(marker~=1))
-%         DataTemp = sscanf(AgentStream(agent),'%d');
-%         [n,p] = size(DataTemp);
-%         if( abs( DataTemp-Values(counter-1,agent) ) <= SensorThreshold )
-%             marker=1;
-%         end
-%     end
-%     Values(counter,agent) = DataTemp;
-%     clear DataTemp;
-% end
 for agent = 1 : AgentNumber
     Values(counter,agent) = str2num(fgetl(mbed(agent)));
 end
