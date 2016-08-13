@@ -44,24 +44,25 @@ if isnan(s.P) %initialise error covariance matrix
 end
 
 
-ptrue=[fun_inter(r1(1),r1(2),u) ;
-    fun_inter(r2(1),r2(2),u) ;
-    fun_inter(r3(1),r3(2),u);
-    fun_inter(r4(1),r4(2),u) ;
-    fun_inter(rk1(1),rk1(2),uk) ;
-    fun_inter(rk2(1),rk2(2),uk) ;
-    fun_inter(rk3(1),rk3(2),uk) ;
-    fun_inter(rk4(1),rk4(2),uk)] ;
+% ptrue=[fun_inter(r1(1),r1(2),u) ;
+%     fun_inter(r2(1),r2(2),u) ;
+%     fun_inter(r3(1),r3(2),u);
+%     fun_inter(r4(1),r4(2),u) ;
+%     fun_inter(rk1(1),rk1(2),uk) ;
+%     fun_inter(rk2(1),rk2(2),uk) ;
+%     fun_inter(rk3(1),rk3(2),uk) ;
+%     fun_inter(rk4(1),rk4(2),uk)] ;
 %measurement vector
-noise=0;
-p=[fun_inter(r1(1),r1(2),u) + R*noise*randn;
-    fun_inter(r2(1),r2(2),u) + R*noise*randn;
-    fun_inter(r3(1),r3(2),u) + R*noise*randn;
-    fun_inter(r4(1),r4(2),u) + R*noise*randn;
-    fun_inter(rk1(1),rk1(2),uk) + R*noise*randn;
-    fun_inter(rk2(1),rk2(2),uk) + R*noise*randn;
-    fun_inter(rk3(1),rk3(2),uk) + R*noise*randn;
-    fun_inter(rk4(1),rk4(2),uk) + R*noise*randn];
+% noise=0;
+% p=[fun_inter(r1(1),r1(2),u) + R*noise*randn;
+%     fun_inter(r2(1),r2(2),u) + R*noise*randn;
+%     fun_inter(r3(1),r3(2),u) + R*noise*randn;
+%     fun_inter(r4(1),r4(2),u) + R*noise*randn;
+%     fun_inter(rk1(1),rk1(2),uk) + R*noise*randn;
+%     fun_inter(rk2(1),rk2(2),uk) + R*noise*randn;
+%     fun_inter(rk3(1),rk3(2),uk) + R*noise*randn;
+%     fun_inter(rk4(1),rk4(2),uk) + R*noise*randn];
+p = [ Values(counter,:)' ; Values(counter-1,:)' ];
 
 %% Estimate Laplacian
 Laplacian=(1/((r1(2)+r2(1)-r3(2)-r4(1))/4)^2)*(fun_inter(r4(1),r4(2),uk)+fun_inter(r3(1),r3(2),uk)+fun_inter(r2(1),r2(2),uk)+fun_inter(r1(1),r1(2),uk)-4*fun_inter(rc(1),rc(2),uk));
