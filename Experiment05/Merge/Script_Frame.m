@@ -23,7 +23,7 @@ end
 
 %% Sensor Reading
 for agent = 1 : AgentNumber
-    Values(counter,agent) = str2num(fgetl(mbed(agent)));
+    Values(counter,agent) = str2num(fgetl(mbed(agent))) - sensorBG(agent) + iniBG;
 end
 
 
