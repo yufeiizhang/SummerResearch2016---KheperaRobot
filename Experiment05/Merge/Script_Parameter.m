@@ -53,3 +53,6 @@ sensorBG(1) = 557.2004;
 sensorBG(2) = 771.3762;
 sensorBG(3) = 796.2079;
 sensorBG(4) = 975.9357;
+
+% Initial Background Consenctration Offset
+iniBG = 1000;
