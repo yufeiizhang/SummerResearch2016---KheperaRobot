@@ -32,12 +32,16 @@ if isnan(s.x)
     x=rc(1);
     y=rc(2);
    % px = (u(x+1,y)-u(x,y))/2;
-   px= (fun_inter(rc(1)+1,rc(2),u)-fun_inter(rc(1),rc(2),u))/2;
-   py= (fun_inter(rc(1),rc(2)+1,u)-fun_inter(rc(1),rc(2),u))/2;
+   % px= (fun_inter(rc(1)+1,rc(2),u)-fun_inter(rc(1),rc(2),u))/2;
+   px = (Values(counter,4) - Values(counter,2))/2;
+   % py= (fun_inter(rc(1),rc(2)+1,u)-fun_inter(rc(1),rc(2),u))/2;
+   py = (Values(counter,1) - Values(counter,3))/2;
    % py = (u(x,y+1)-u(x,y))/2;
-    R=fun_inter(rc(1),rc(2),u);
-    Rk=fun_inter(rck1(1),rck1(2),u);
-    s.x = [R;px;py;2;Rk;px;py;];
+   % R=fun_inter(rc(1),rc(2),u);
+    R = mean(Values(counter,:));
+   % Rk=fun_inter(rck1(1),rck1(2),u);
+    Rk = mean(Values(counter-1,:));
+    s.x = [R;px;py;5;Rk;px;py;];
 end
 if isnan(s.P) %initialise error covariance matrix
     s.P = 0;
@@ -65,21 +69,26 @@ end
 p = [ Values(counter,:)' ; Values(counter-1,:)' ];
 
 %% Estimate Laplacian
-Laplacian=(1/((r1(2)+r2(1)-r3(2)-r4(1))/4)^2)*(fun_inter(r4(1),r4(2),uk)+fun_inter(r3(1),r3(2),uk)+fun_inter(r2(1),r2(2),uk)+fun_inter(r1(1),r1(2),uk)-4*fun_inter(rc(1),rc(2),uk));
-
+% Laplacian=(1/((r1(2)+r2(1)-r3(2)-r4(1))/4)^2)*(fun_inter(r4(1),r4(2),uk)+fun_inter(r3(1),r3(2),uk)+fun_inter(r2(1),r2(2),uk)+fun_inter(r1(1),r1(2),uk)-4*fun_inter(rc(1),rc(2),uk));
+Laplacian_f=(1/((r1(2)+r2(1)-r3(2)-r4(1))/4)^2)*...
+    ((sum(Values(counter-1,:)))-s.x(5,1));
 %% Call cooperative Kalman filter
-s=fun_kalmanf3(s,p,r1,r2,r3,r4,rc,rk1,rk2,rk3,rk4,rck1,Laplacian);
+s=fun_kalmanf3(s,p,r1,r2,r3,r4,rc,rk1,rk2,rk3,rk4,rck1,Laplacian_f);
 s.x;  %information state
 s.P; %error covariance matrix
 
 %calculate dz/dt
 
+%
+% Laplacian=(1/((r1(2)+r2(1)-r3(2)-r4(1))/4)^2)*(fun_inter(r4(1),r4(2),uk)+fun_inter(r3(1),r3(2),uk)+fun_inter(r2(1),r2(2),uk)+fun_inter(r1(1),r1(2),uk)-4*fun_inter(rc(1),rc(2),uk));
+Laplacian=(1/((r1(2)+r2(1)-r3(2)-r4(1))/4)^2)*...
+    ((sum(Values(counter,:)))-s.x(5,1));
 %store field value at center
 %z=(A1-A2)/dt;
 error2=(s.x(1,1)-s.x(5,1))/dt;
 errorzong2=[errorzong2;error2];
 Laplacianzong=[Laplacianzong,Laplacian];
-H=(1/1^2)*(fun_inter(r4(1),r4(2),u)+fun_inter(r3(1),r3(2),u)+fun_inter(r2(1),r2(2),u)+fun_inter(r1(1),r1(2),u)-4*fun_inter(rc(1),rc(2),u));
+%H=(1/1^2)*(fun_inter(r4(1),r4(2),u)+fun_inter(r3(1),r3(2),u)+fun_inter(r2(1),r2(2),u)+fun_inter(r1(1),r1(2),u)-4*fun_inter(rc(1),rc(2),u));
 
 %% Motion Control
 grad=1*[s.x(2,1);s.x(3,1)]/norm([s.x(2,1);s.x(3,1)]);
