@@ -93,8 +93,8 @@ for ccounter = 1 : CalibNum
         sensorCal(ccounter,agent) = str2num(fgetl(mbed(agent)));
     end
 end
-% sensorBG = mean(sensorCal);
-% sensorBG should be loaded in advance...
+sensorBG = mean(sensorCal);
+% sensorBG overwrite that file.
 display('Finish Calibration.');
 
 
@@ -164,4 +164,5 @@ r3_s = [];
 r4_s = [];
 
 display('Pause...');
+pause;% Waiting for diffusion field
 pause(breakTime);
