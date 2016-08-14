@@ -45,7 +45,7 @@ stepLength = 8;
 epsilon = 0.00005;
 
 % Sensor Calibration loop counter
-CalibNum = 1000;
+CalibNum = 100;
 
 
 % Pre-Calibration Data
